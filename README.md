@@ -1,0 +1,2 @@
+# privatlakarportal-konfiguration
+Konfiguration för Privatläkarportalen
