@@ -8,13 +8,36 @@
   <!--Daily rolling file appender -->
   <appender name="FILE"
     class="ch.qos.logback.core.rolling.RollingFileAppender">
-
+    <filter class="se.inera.certificate.logging.MarkerFilter">
+      <marker>Monitoring</marker>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
     <file>${catalina.base}/logs/privatlakarportal.log</file>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
       <fileNamePattern>${catalina.base}/logs/privatlakarportal.%d{yyyy-MM-dd}.log
       </fileNamePattern>
     </rollingPolicy>
     <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder" />
+  </appender>
+
+  <!-- Daily rolling file appender for logging monitoring events -->
+  <appender name="MONITORING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <filter class="se.inera.certificate.logging.MarkerFilter">
+      <marker>Monitoring</marker>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+    <file>${catalina.base}/logs/privatlakarportal-monitoring.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${catalina.base}/logs/privatlakarportal-monitoring.%d{yyyy-MM-dd}.log
+      </fileNamePattern>
+    </rollingPolicy>
+    <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+      <layout class="se.inera.privatlakarportal.logging.PatternLayoutWithUserContext">
+        <param name="Pattern" value="%date{ISO8601} %session %user - %msg%n" />
+      </layout>
+    </encoder>
   </appender>
 
   <logger name="org.springframework" level="error" />
@@ -27,5 +50,6 @@
     <level value="error" />
     <appender-ref ref="STDOUT" />
     <appender-ref ref="FILE" />
+    <appender-ref ref="MONITORING" />
   </root>
 </configuration>
