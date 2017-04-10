@@ -2,3 +2,4 @@ credentials.properties filter=git-crypt diff=git-crypt
 *.jks filter=git-crypt diff=git-crypt
 *.p12 filter=git-crypt diff=git-crypt
 privatlakarportal.mailresource.properties filter=git-crypt diff=git-crypt
+demo/sp-eleg.xml filter=git-crypt diff=git-crypt
