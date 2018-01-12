@@ -1,31 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration scan="true" scanPeriod="30 seconds">
-  <jmxConfigurator />
+
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder"/>
+    <filter class="se.inera.intyg.privatlakarportal.common.monitoring.util.MarkerFilter">
+      <markers>Monitoring, HSA</markers>
+      <onMatch>DENY</onMatch>
+      <onMismatch>ACCEPT</onMismatch>
+    </filter>
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+    </layout>
   </appender>
 
-  <!--Daily rolling file appender -->
-  <appender name="FILE"
-    class="ch.qos.logback.core.rolling.RollingFileAppender">
-
-    <file>${catalina.base}/logs/privatlakarportal.log</file>
+  <!-- Daily rolling file appender for logging monitoring events -->
+  <appender name="MONITORING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <filter class="se.inera.intyg.privatlakarportal.common.monitoring.util.MarkerFilter">
+      <marker>Monitoring</marker>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+    <file>${catalina.base}/logs/privatlakarportal-monitoring.log</file>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      <fileNamePattern>${catalina.base}/logs/privatlakarportal.%d{yyyy-MM-dd}.log
+      <fileNamePattern>${catalina.base}/logs/privatlakarportal-monitoring.%d{yyyy-MM-dd}.log
       </fileNamePattern>
     </rollingPolicy>
-    <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder" />
+    <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+      <layout class="se.inera.intyg.privatlakarportal.logging.PatternLayoutWithUserContext">
+	<param name="Pattern" value="%date{ISO8601} %session %user - %msg%n" />
+      </layout>
+    </encoder>
   </appender>
 
-  <logger name="org.springframework" level="error" />
+  <logger name="org.apache.cxf.services" level="info"/>
 
-  <logger name="org.hibernate" level="error" />
-
-  <logger name="org.hibernate.engine.jdbc.spi.SqlExceptionHelper" level="off" />
+  <logger name="se.inera.intyg.privatlakarportal" level="info"/>
 
   <root>
     <level value="error" />
     <appender-ref ref="STDOUT" />
-    <appender-ref ref="FILE" />
+    <appender-ref ref="MONITORING" />
   </root>
 </configuration>
