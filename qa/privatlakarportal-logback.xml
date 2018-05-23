@@ -46,6 +46,8 @@
 
   <logger name="org.hibernate.engine.jdbc.spi.SqlExceptionHelper" level="off" />
 
+  <logger name="se.inera.intyg.privatlakarportal" level="info"/>
+
   <root>
     <level value="error" />
     <appender-ref ref="STDOUT" />
