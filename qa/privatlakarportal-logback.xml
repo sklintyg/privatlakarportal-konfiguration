@@ -10,8 +10,8 @@
     class="ch.qos.logback.core.rolling.RollingFileAppender">
     <filter class="se.inera.intyg.privatlakarportal.common.monitoring.util.MarkerFilter">
       <marker>Monitoring</marker>
-      <onMatch>ACCEPT</onMatch>
-      <onMismatch>DENY</onMismatch>
+      <onMatch>DENY</onMatch>
+      <onMismatch>ACCEPT</onMismatch>
     </filter>
     <file>${catalina.base}/logs/privatlakarportal.log</file>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -43,8 +43,9 @@
   <logger name="org.springframework" level="error" />
 
   <logger name="org.hibernate" level="error" />
-
   <logger name="org.hibernate.engine.jdbc.spi.SqlExceptionHelper" level="off" />
+
+  <logger name="se.inera" level="warn" />
 
   <logger name="se.inera.intyg.privatlakarportal" level="info"/>
 
