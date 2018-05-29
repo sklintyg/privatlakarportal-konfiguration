@@ -2,7 +2,11 @@
 <configuration scan="true" scanPeriod="30 seconds">
   <jmxConfigurator />
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder"/>
+    <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+      <layout class="se.inera.intyg.privatlakarportal.logging.PatternLayoutWithUserContext">
+        <param name="Pattern" value="%date{ISO8601} [%thread] %-5level %logger{10} [%user %session] - %msg%n" />
+      </layout>
+    </encoder>
   </appender>
 
   <!--Daily rolling file appender -->
@@ -18,7 +22,11 @@
       <fileNamePattern>${catalina.base}/logs/privatlakarportal.%d{yyyy-MM-dd}.log
       </fileNamePattern>
     </rollingPolicy>
-    <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder" />
+    <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+      <layout class="se.inera.intyg.privatlakarportal.logging.PatternLayoutWithUserContext">
+        <param name="Pattern" value="%date{ISO8601} [%thread] %-5level %logger{10} [%user %session] - %msg%n" />
+      </layout>
+    </encoder>
   </appender>
 
   <!-- Daily rolling file appender for logging monitoring events -->
@@ -46,7 +54,6 @@
   <logger name="org.hibernate.engine.jdbc.spi.SqlExceptionHelper" level="off" />
 
   <logger name="se.inera" level="warn" />
-
   <logger name="se.inera.intyg.privatlakarportal" level="info"/>
 
   <root>
