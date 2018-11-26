@@ -24,7 +24,7 @@
   <logger name="org.hibernate.engine.jdbc.spi.SqlExceptionHelper" level="off" />
 
   <root>
-    <level value="error" />
+    <level value="info" />
     <appender-ref ref="STDOUT" />
     <appender-ref ref="FILE" />
   </root>
