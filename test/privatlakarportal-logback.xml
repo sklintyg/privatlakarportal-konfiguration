@@ -18,11 +18,11 @@
         </encoder>
     </appender>
 
-    <logger name="se.inera.intyg.privatlakarportal.hsa.monitoring.MonitoringLogService" level="info" additivity="false">
+    <logger name="se.inera.intyg.privatlakarportal.hsa.monitoring.MonitoringLogService" level="INFO" additivity="false">
         <appender-ref ref="PP_MONITORING"/>
     </logger>
 
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="CONSOLE"/>
     </root>
 
